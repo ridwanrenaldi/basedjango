@@ -1,0 +1,2 @@
+# basedjango
+Django + AdminLTE
