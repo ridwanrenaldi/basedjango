@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include 'head.html' %}
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  {% include 'preloader.html' %}
+
+  {% include 'navbar.html' %}
+
+  {% include 'sidebar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard v1</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-12">
+          {% if messages %}
+              {% for message in messages %}
+                {% if message.tags == 'success' %}
+                  <div class="alert alert-success alert-dismissible">
+                {% else %}
+                  <div class="alert alert-danger alert-dismissible">
+                {% endif %}
+                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                  <h5><i class="icon fas fa-check"></i> Alert!</h5>
+                  {{ message }}
+                </div>
+              {% endfor %}
+          {% endif %}
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-12">
+
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Add</h3>
+              
+              <div class="card-tools">
+                <ul class="nav nav-pills ml-auto">
+                  <li class="nav-item">
+                    <a href="{% url 'category:add' %}">
+                      <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-plus-square"></i> Add</button>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- /.card-header -->
+
+            <div class="card-body">
+              <table id="_table_" class="table table-bordered table-hover table-striped" width="100%">
+                <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Action</th>
+                </tr>
+                </thead>
+                <tbody>
+                  {% for dt in data %}
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ dt.category_name }}</td>
+                    <td>{{ dt.category_description }}</td>
+                    <td>
+                      <a href="{% url 'category:edit' dt.category_id %}" data-toggle="tooltip" title="Edit">
+                        <button type="button" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                      </a>
+                      <a href="{% url 'category:delete' dt.category_id %}" data-toggle="tooltip" title="Delete">
+                          <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                      </a>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+  {% include 'footer.html' %}
+
+</div>
+<!-- ./wrapper -->
+
+{% include 'javascript.html' %}
+
+<script>
+  $('#_table_').DataTable()
+</script>
+</body>
+</html>

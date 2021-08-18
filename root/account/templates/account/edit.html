@@ -1,0 +1,155 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  {% include 'head.html' %}
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+  {% include 'preloader.html' %}
+
+  {% include 'navbar.html' %}
+
+  {% include 'sidebar.html' %}
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard v1</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <div class="row">
+          <div class="col-md-12">
+            {% if messages %}
+                {% for message in messages %}
+                  {% if message.tags == 'success' %}
+                    <div class="alert alert-success alert-dismissible">
+                  {% else %}
+                    <div class="alert alert-danger alert-dismissible">
+                  {% endif %}
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <h5><i class="icon fas fa-check"></i> Alert!</h5>
+                    {{ message }}
+                  </div>
+                {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12">
+            <!-- Horizontal Form -->
+            <div class="card card-info">
+              <div class="card-header">
+                <h3 class="card-title">Form Add</h3>
+              </div>
+              <!-- /.card-header -->
+              
+              <!-- form start -->
+              <form action="{% url 'account:edit' user.id %}" method="post">
+                <div class="card-body">
+                  {% csrf_token %}
+
+
+                  <div class="form-group row">
+                    <label for="{{ form.username.id_for_label }}" class="col-sm-3 col-form-label" style="text-align: right;">{{ form.username.label_tag }}</label>
+                    <div class="col-sm-6">
+                      <input type="text" name="{{ form.username.name }}" class="form-control" id="{{ form.username.id_for_label }}" placeholder="{{ form.username.name }}" value="{{ form.username.initial }}" required="required" minlength="4" maxlength="20">
+                      {{ form.username.errors }}
+                    </div>
+                  </div>
+
+
+                  <div class="form-group row">
+                    <label for="{{ form.email.id_for_label }}" class="col-sm-3 col-form-label" style="text-align: right;">{{ form.email.label_tag }}</label>
+                    <div class="col-sm-6">
+                      <input type="email" name="{{ form.email.name }}" class="form-control" id="{{ form.email.id_for_label }}" placeholder="{{ form.email.name }}" value="{{ form.email.initial }}" required="required" minlength="4" maxlength="20">
+                      {{ form.email.errors }}
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="{{ form.first_name.id_for_label }}" class="col-sm-3 col-form-label" style="text-align: right;">{{ form.first_name.label_tag }}</label>
+                    <div class="col-sm-6">
+                      <input type="text" name="{{ form.first_name.name }}" class="form-control" id="{{ form.first_name.id_for_label }}" placeholder="{{ form.first_name.name }}" value="{{ form.first_name.initial }}" required="required" minlength="4" maxlength="20">
+                      {{ form.first_name.errors }}
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="{{ form.last_name.id_for_label }}" class="col-sm-3 col-form-label" style="text-align: right;">{{ form.last_name.label_tag }}</label>
+                    <div class="col-sm-6">
+                      <input type="text" name="{{ form.last_name.name }}" class="form-control" id="{{ form.last_name.id_for_label }}" placeholder="{{ form.last_name.name }}" value="{{ form.last_name.initial }}" required="required" minlength="4" maxlength="20">
+                      {{ form.last_name.errors }}
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="{{ form.password1.id_for_label }}" class="col-sm-3 col-form-label" style="text-align: right;">{{ form.password1.label_tag }}</label>
+                    <div class="col-sm-6">
+                      <input type="password" name="{{ form.password1.name }}" class="form-control" id="{{ form.password1.id_for_label }}" placeholder="{{ form.password1.name }}" value="" required="required" minlength="4" maxlength="20">
+                      {{ form.password1.errors }}
+                    </div>
+                  </div>
+
+                  <div class="form-group row">
+                    <label for="{{ form.password2.id_for_label }}" class="col-sm-3 col-form-label" style="text-align: right;">{{ form.password2.label_tag }}</label>
+                    <div class="col-sm-6">
+                      <input type="password" name="{{ form.password2.name }}" class="form-control" id="{{ form.password2.id_for_label }}" placeholder="{{ form.password2.name }}" value="" required="required" minlength="4" maxlength="20">
+                      {{ form.password2.errors }}
+                    </div>
+                  </div>
+
+
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                  <div class="form-group row">
+                    <div class="col-md-6 col-sm-6 offset-md-3">
+                      <a href="{% url 'account:index' %}">
+                        <button type="button" class="btn btn-warning">Cancel</button>
+                      </a>
+                      <button type="reset" class="btn btn-info" id="_reset_">Reset</button>
+                      <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.card-footer -->
+              
+              </form>
+            </div>
+          </div>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+  {% include 'footer.html' %}
+
+</div>
+<!-- ./wrapper -->
+
+{% include 'javascript.html' %}
+</body>
+</html>
