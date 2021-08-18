@@ -17,12 +17,12 @@ def index(request):
 def add(request):
   if request.POST:
     form = FormCategory(request.POST)
-    if form.is_valid:
+    if form.is_valid():
       form.save()
       messages.success(request, 'Data has been saved')
       return redirect('category:add')
     else:
-      messages.error(request, 'There is an error')
+      messages.error(request, form.errors)
       return redirect('category:add')
 
   else :
@@ -42,7 +42,7 @@ def edit(request, id):
       messages.success(request, 'Data updated successfully')
       return redirect('category:edit', id=id)
     else:
-      messages.error(request, 'There is an error')
+      messages.error(request, form.errors)
       return redirect('category:edit', id=id)
 
   else:

@@ -20,11 +20,11 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Account</h1>
+            <h1 class="m-0">Product</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Account</a></li>
+              <li class="breadcrumb-item"><a href="#">Product</a></li>
               <li class="breadcrumb-item active">Table</li>
             </ol>
           </div><!-- /.col -->
@@ -63,7 +63,7 @@
               <div class="card-tools">
                 <ul class="nav nav-pills ml-auto">
                   <li class="nav-item">
-                    <a href="{% url 'account:add' %}">
+                    <a href="{% url 'product:add' %}">
                       <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-plus-square"></i> Add</button>
                     </a>
                   </li>
@@ -77,34 +77,37 @@
                 <thead>
                 <tr>
                   <th>No</th>
-                  <th>Username</th>
-                  <th>Email</th>
-                  <th>Is Staff</th>
-                  <th>Is Active</th>
-                  <th>Date</th>
+                  <th>Category</th>
+                  <th>Name</th>
+                  <th>Description</th>
+                  <th>Stock</th>
+                  <th>Image</th>
                   <th>Action</th>
                 </tr>
                 </thead>
                 <tbody>
                   {% for dt in data %}
-                    <tr>
-                      <td>{{ forloop.counter }}</td>
-                      <td>{{ dt.username }}</td>
-                      <td>{{ dt.email }}</td>
-                      <td>{{ dt.is_staff }}</td>
-                      <td>{{ dt.is_active }}</td>
-                      <td>{{ dt.date_joined }}</td>
-                      <td>
-                        <a href="{% url 'account:edit' dt.id %}" data-toggle="tooltip" title="Edit">
-                          <button type="button" class="btn btn-warning"><i class="fa fa-edit"></i></button>
-                        </a>
-                        <a href="{% url 'account:delete' dt.id %}" data-toggle="tooltip" title="Delete">
-                            <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                        </a>
-                      </td>
-                    </tr>
+                  <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ dt.category }}</td>
+                    <td>{{ dt.product_name }}</td>
+                    <td>{{ dt.product_description }}</td>
+                    <th>{{ dt.product_stock }}</th>
+                    <th>
+                      {% if dt.product_image %}
+                        <img src="{{ dt.product_image.url }}" alt="" width="90px">
+                      {% endif %}
+                    </th>
+                    <td>
+                      <a href="{% url 'product:edit' dt.product_id %}" data-toggle="tooltip" title="Edit">
+                        <button type="button" class="btn btn-warning"><i class="fa fa-edit"></i></button>
+                      </a>
+                      <a href="{% url 'product:delete' dt.product_id %}" data-toggle="tooltip" title="Delete">
+                          <button type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                      </a>
+                    </td>
+                  </tr>
                   {% endfor %}
-
                 </tbody>
               </table>
             </div>

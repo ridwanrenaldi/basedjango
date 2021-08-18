@@ -24,7 +24,7 @@ def add(request):
       messages.success(request, 'Data has been saved')
       return redirect('account:add')
     else:
-      messages.error(request, 'There is an error')
+      messages.error(request, form.errors)
       return redirect('account:add')
   else:
     data = {
@@ -43,8 +43,7 @@ def edit(request, id):
       messages.success(request, 'Data updated successfully')
       return redirect('account:edit', id=id)
     else:
-      # print(form.errors)
-      messages.error(request, 'There is an error')
+      messages.error(request, form.errors)
       return redirect('account:edit', id=id)
   else:
     data = {
@@ -52,7 +51,6 @@ def edit(request, id):
       'form' : FormAccount(instance=user),
       'user' : user,
     }
-    # print(data['form'].__dict__)
     return render(request, 'account/edit.html', data)
 
 @login_required(login_url=settings.LOGIN_URL)

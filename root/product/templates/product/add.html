@@ -20,12 +20,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Category</h1>
+            <h1 class="m-0">Product</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">category</a></li>
-              <li class="breadcrumb-item active">Edit</li>
+              <li class="breadcrumb-item"><a href="#">Product</a></li>
+              <li class="breadcrumb-item active">Add</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -68,7 +68,7 @@
 
               
               <!-- form start -->
-              <form action="{% url 'category:edit' category.category_id %}" method="post">
+              <form action="{% url 'product:add' %}" method="post" enctype="multipart/form-data">
 
                 <div class="card-body">
                   {% csrf_token %}
@@ -90,7 +90,7 @@
                 <div class="card-footer">
                   <div class="form-group row">
                     <div class="col-md-6 col-sm-6 offset-md-3">
-                      <a href="{% url 'category:index' %}">
+                      <a href="{% url 'product:index' %}">
                         <button type="button" class="btn btn-warning">Cancel</button>
                       </a>
                       <button type="reset" class="btn btn-info" id="_reset_">Reset</button>
