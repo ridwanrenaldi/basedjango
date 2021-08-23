@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from product.models import Product
 from product.forms import FormProduct
+import os
 
 
 @login_required(login_url=settings.LOGIN_URL)
@@ -41,6 +42,13 @@ def edit(request, id):
   if request.POST:
     form = FormProduct(request.POST, request.FILES, instance=product)
     if form.is_valid():
+
+      # deleting old uploaded image.
+      product2 = Product.objects.get(product_id=id)
+      image_path = product2.product_image.path
+      if os.path.exists(image_path):
+          os.remove(image_path)
+
       form.save()
       messages.success(request, 'Data updated successfully')
       return redirect('product:edit', id=id)
@@ -58,7 +66,10 @@ def edit(request, id):
 
 @login_required(login_url=settings.LOGIN_URL)
 def delete(request, id):
-  product = Product.objects.filter(product_id=id)
+  product = Product.objects.get(product_id=id)
+  print(product.product_image.path)
+  if len(product.product_image):
+    os.remove(product.product_image.path)
   product.delete()
   messages.success(request, 'Data deleted successfully')
   return redirect('product:index')

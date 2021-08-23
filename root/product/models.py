@@ -7,7 +7,7 @@ class Product(models.Model):
   product_name = models.CharField(max_length=100, null=True)
   product_description = models.TextField(null=True)
   product_stock = models.IntegerField(null=True)
-  product_image = models.ImageField(upload_to='product/', null=True)
+  product_image = models.ImageField(upload_to='product/', null=True, blank=True)
   product_created = models.DateTimeField(null=True, auto_now_add=True)
   product_modified = models.DateTimeField(null=True, auto_now=True)
 

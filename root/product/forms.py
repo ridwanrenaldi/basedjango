@@ -4,6 +4,8 @@ from product.models import Product
 from django.utils.translation import gettext_lazy as _
 
 class FormProduct(ModelForm):
+  product_image = forms.FileInput(attrs={'required': False})
+
   class Meta:
     model = Product
     fields = ['category', 'product_name', 'product_description', 'product_stock', 'product_image']
